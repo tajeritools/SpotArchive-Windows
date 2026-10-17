@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using Microsoft.Win32;
 
 namespace SpotArchive.Windows;
 
@@ -118,20 +117,14 @@ internal sealed class MainForm : Form
 
         try
         {
-            using var key = Registry.ClassesRoot.OpenSubKey(".spot");
-            var association = key?.GetValue(null) as string;
-            if (string.IsNullOrWhiteSpace(association))
-            {
-                ShowHelp();
-                return;
-            }
-
             Process.Start(new ProcessStartInfo(_selectedFile) { UseShellExecute = true });
         }
         catch (Exception exception)
         {
-            MessageBox.Show(this, $"باز کردن فایل ممکن نشد.\n\n{exception.Message}", Text,
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(this,
+                "ویندوز هیچ برنامه‌ای برای باز کردن .spot پیدا نکرد. SpotPlayer رسمی را نصب کرده و با مجوز ناشر وارد شوید.\n\n" +
+                exception.Message,
+                Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
