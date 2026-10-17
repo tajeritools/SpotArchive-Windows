@@ -1,15 +1,35 @@
 # SpotArchive for Windows
 
-Read-only inventory and SHA-256 verified backups of SpotPlayer download folders. **This is not a video player.** It cannot decrypt protected videos or bypass device license restrictions.
+ابزارهای محلی و امن برای فایل‌های دارای مجوز `.spot`. این مخزن سازوکار رمزگذاری یا مجوز SpotPlayer را دور نمی‌زند.
 
-## Run
-Windows 10/11, Python 3.10+: `python spotarchive.py`
+## باز کردن فایل ویدئویی
 
-To create an EXE, open the **Actions** tab and run **Build Windows EXE**, or use `pip install pyinstaller` followed by `pyinstaller --onefile --windowed --name SpotArchive spotarchive.py`.
+پروژهٔ WinForms با نام **SpotArchive.Windows** یک رابط ساده برای انتخاب یا کشیدن‌ورهای فایل `.spot` است. پس از انتخاب، فایل را به برنامهٔ ثبت‌شده در ویندوز (SpotPlayer رسمی) می‌سپارد.
 
-1. Copy the whole `Android/data/spotplayer.ir/files` folder to the PC. Do not delete originals.
-2. Select the PC copy as source and click **Scan**.
-3. Export a CSV inventory, or copy to another destination with SHA-256 verification.
-4. Keep files on the phone until you have confirmed a working playback solution.
+فایل‌های `.spot`، ویدیوی استاندارد مانند MP4 نیستند؛ برای پخش به نصب SpotPlayer رسمی و مجوز معتبر ناشر محتوا نیاز دارید.
 
-Never publish your license data or course downloads on GitHub.
+### اجرا
+
+پیش‌نیاز: [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) در ویندوز.
+
+```powershell
+dotnet run --project .\SpotArchive.Windows.csproj
+```
+
+ساخت فایل اجرایی مستقل:
+
+```powershell
+dotnet publish .\SpotArchive.Windows.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+```
+
+## بایگانی و نسخهٔ پشتیبان
+
+`spotarchive.py` ابزار قبلی مخزن است که پوشه‌های دانلود SpotPlayer را فقط فهرست می‌کند و پشتیبان SHA-256 تأییدشده می‌سازد؛ هیچ فایلی را پاک، آپلود یا رمزگشایی نمی‌کند.
+
+برای اجرای آن در ویندوز (Python 3.10+):
+
+```powershell
+python spotarchive.py
+```
+
+همیشه فایل اصلی و اطلاعات مجوز را خصوصی نگه دارید و تا مطمئن شدن از پخش، نسخهٔ اصلی را حذف نکنید.
